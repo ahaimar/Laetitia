@@ -1,0 +1,88 @@
+
+            # ++++++++++++++++++|  Project Generator  |++++++++++++++++ #
+            # spring boot
+spring:
+  application:
+    name: Laetitia
+  profiles:
+    active: ${ACTIVE_PROFILE:dev}
+        # pg_db connection
+  jackson: # Settings that control how Java objects are converted to JSON.
+    default-property-inclusion: non_null # Effect: Properties with null values are excluded from the serialized JSON.
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false # Prevents Jackson from throwing an exception when trying to serialize an object with no properties.
+      CLOSE_CLOSEABLE: true # Ensures that any Closeable resources (like streams) are automatically closed after being written.
+      FLUSH_AFTER_WRITE_VALUE: true # Forces Jackson to flush the output stream immediately after writing a value. Ensures data is written to the destination promptly.
+      WRITE_DATES_AS_TIMESTAMPS: false # Ensures that date/time fields are serialized as readable strings (like 2024-12-27) instead of raw timestamps (like 1703654400).
+    deserialization:
+      FAIL_ON_UNKNOWN_PROPERTIES: false # Allows deserialization to continue even if there are unknown properties in the JSON that don't map to any field in the Java class.
+  datasource:
+    url: jdbc:postgresql://localhost:5432/myData?useSSL=false
+    username: user
+    password: root
+
+      #
+  jpa:
+    open-in-view: false
+    database_platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+    # Swagger configuration
+  sql:
+    init:
+      mode: embedded #never
+      continue-on-error: false
+      schema-locations:
+        - classpath:./data/schema.sql
+      data-locations:
+        - classpath:./data/data.sql
+
+      # servlet
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1000MB
+      max-request-size: 1000MB
+
+    # Email address
+  mail:
+    username: ${EMAIL_ID}
+    password: ${EMAIL_PASSWORD}
+    host: ${VERIFY_EMAIL_HOST:smtp.default.com}
+    port: 587
+    default-encoding: UTF-8
+    properties:
+      mail:
+        mime:
+          charset: UTF-8
+        smtp:
+          writetimeout: 10000
+          connecttimeout: 10000
+          timeout: 10000
+          auth: true
+          starttls:
+            enable: true
+            required: true
+      verify:
+        host: ${VERIFY_EMAIL_HOST}
+
+        #  security settings
+#  security:
+#    user:
+#      name: user
+#      password: 0000
+
+      # server information
+server:
+  port: 9090
+  error:
+    path: /user/error
+    whitelabel:
+      enabled: false
