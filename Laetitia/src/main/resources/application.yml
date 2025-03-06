@@ -1,6 +1,7 @@
 
             # ++++++++++++++++++|  Project Generator  |++++++++++++++++ #
             # spring boot
+
 spring:
   application:
     name: Laetitia
@@ -17,11 +18,9 @@ spring:
     deserialization:
       FAIL_ON_UNKNOWN_PROPERTIES: false # Allows deserialization to continue even if there are unknown properties in the JSON that don't map to any field in the Java class.
   datasource:
-    url: jdbc:postgresql://localhost:5432/myData?useSSL=false
-    username: user
-    password: root
-
-      #
+    url: jdbc:postgresql://${PG_HOST}:${PG_PORT}/${PG_DATABASE}?useSSL=false
+    username: ${PG_USERNAME}
+    password: ${PG_PASSWORD}
   jpa:
     open-in-view: false
     database_platform: org.hibernate.dialect.PostgreSQLDialect

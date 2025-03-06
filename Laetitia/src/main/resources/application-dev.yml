@@ -1,0 +1,22 @@
+
+                              #                       #
+                              #                       #
+                              #                       #
+
+# data source
+PG_USERNAME: user
+PG_PASSWORD: root
+PG_HOST: localhost
+PG_PORT: 5432
+PG_DATABASE: Laetitia
+
+# Server
+CONTAINER_PORT: 9090
+ACTIVE_PROFILE: dev
+
+# Email Config
+EMAIL_HOST: smtp.gmail.com
+EMAIL_PORT: 587
+EMAIL_ID: houwrou@hotmail.com
+EMAIL_PASSWORD: 12345qwert
+VERIFY_EMAIL_HOST: http://localhost:9090

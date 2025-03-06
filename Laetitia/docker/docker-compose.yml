@@ -1,31 +1,48 @@
+
+          #+++++++++++++++++++++++|       <>       |++++++++++++++++++++++#
+          #     file for generating the container postgres database       #
+          #
+
+
+
 version: "3.9"
 
 services:
-  postgresdb:
-    container_name: postgresdb
+  # PostgreSQL Service
+  postgres:
+    container_name: postgres
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: myData 
-      POSTGRES_PORT: 5432 
+      POSTGRES_USER: ${POST_USER_NAME}
+      POSTGRES_PASSWORD: ${POST_PASSWORD}
+      POSTGRES_DB: ${POST_DATABASE}
+      POSTGRES_PORT: 5432
     expose:
       - 5432
     ports:
       - 5432:5432
     volumes:
-      - ./data:/var/lib/postgresql/db
-
+      - postgresVolume:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - ./user.sql:/docker-entrypoint-initdb.d/user.sql
+  # pgAdmin Service
   pgadmin:
     container_name: pgadmin
     image: elestio/pgadmin:latest
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: char@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: 1234
+      PGADMIN_DEFAULT_EMAIL: ${ADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${ADMIN_PASSWORD}
       PGADMIN_LISTEN_PORT: 8080
     ports:
       - 8080:8080
     volumes:
-      - ./data:/var/lib/postgresql/data
+      - pgadminVolume:/var/lib/pgadmin
+#    depends_on:
+#      - postgres
+
+# Named Volumes
+volumes:
+  postgresVolume:
+  pgadminVolume:
