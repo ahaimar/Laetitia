@@ -53,8 +53,6 @@ public class UserResource {
         }
 
     }
-
-
     private URI getUri() {
 
         return URI.create("http://localhost:9090/user/register");
