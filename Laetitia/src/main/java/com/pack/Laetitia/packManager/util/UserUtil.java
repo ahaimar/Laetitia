@@ -1,13 +1,14 @@
 package com.pack.Laetitia.packManager.util;
 
-import com.pack.Laetitia.modle.entity.RolesEntity;
-import com.pack.Laetitia.modle.entity.UserEntity;
+import com.pack.Laetitia.model.entity.RolesEntity;
+import com.pack.Laetitia.model.entity.UserEntity;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static java.time.LocalTime.now;
-import static org.apache.logging.log4j.util.Strings.EMPTY;
+import static org.apache.commons.lang3.StringUtils.EMPTY;
+
 
 public class UserUtil {
 
@@ -20,7 +21,8 @@ public class UserUtil {
                 .email(mail)
                 .lastLogin(LocalDateTime.from(now()))
                 .accountNotExpired(true)
-                .accountLocked(true)
+                .accountNotLocked(true)
+                .mfa(false)
                 .enabled(false)
                 .loginAttempts(0L)
                 .qrCodeSecret(EMPTY)
@@ -29,6 +31,5 @@ public class UserUtil {
                 .imageUrl("https://cdn-icons-png.flaicon.com/512/149/149071.png")
                 .role(role)
                 .build();
-
     }
 }

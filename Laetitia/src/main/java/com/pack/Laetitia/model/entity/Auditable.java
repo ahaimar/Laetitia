@@ -1,18 +1,15 @@
-package com.pack.Laetitia.modle.entity;
+package com.pack.Laetitia.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.pack.Laetitia.packManager.exceptio.ApiException;
-import com.pack.Laetitia.packManager.domin.RequestContext;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.util.AlternativeJdkIdGenerator;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static java.time.LocalDateTime.now;
 
@@ -29,17 +26,23 @@ public abstract class Auditable {
     @Column(name = "id", updatable = false)
     private Long id;
 
-    // Static generator for performance optimization
-    private static final AlternativeJdkIdGenerator ID_GENERATOR = new AlternativeJdkIdGenerator();
-    private String referenceId = ID_GENERATOR.generateId().toString();
+    @Column(name = "reference_id", unique = true, nullable = false, updatable = false)
+    private String referenceId = UUID.randomUUID().toString();
 
-    @NonNull
+    @Column(name = "created_by", nullable = false)
     private Long createdBy;
 
-    @NonNull
+    @Column(name = "updated_by", nullable = false)
     private Long updatedBy;
 
-    @NonNull
+    @ManyToOne
+    @JoinColumn(
+            name = "owner_id", referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "fk_owner_id",
+                    value = ConstraintMode.CONSTRAINT)
+    )
+    private UserEntity owner;
+
     @CreatedDate
     @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
@@ -50,10 +53,7 @@ public abstract class Auditable {
 
     @PrePersist
     public void beforePersist() {
-        var userId = 0L;//RequestContext.getUserId();
-//        if (userId == null) {
-//            throw new ApiException("Cannot persist entity without user ID Request Context for this thread");
-//        }
+        var userId = 0L; // TODO: Replace with RequestContext.getUserId()
         setCreatedAt(now());
         setCreatedBy(userId);
         setUpdatedBy(userId);
@@ -62,10 +62,7 @@ public abstract class Auditable {
 
     @PreUpdate
     public void beforeUpdate() {
-        var userId = 0L;//RequestContext.getUserId();
-//        if (userId == null) {
-//            throw new ApiException("Cannot update entity without user ID Request Context for this thread");
-//        }
+        var userId = 0L; // TODO: Replace with RequestContext.getUserId()
         setUpdatedAt(now());
         setUpdatedBy(userId);
     }

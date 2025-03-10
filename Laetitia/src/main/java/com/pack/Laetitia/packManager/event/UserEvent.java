@@ -1,7 +1,7 @@
 package com.pack.Laetitia.packManager.event;
 
 
-import com.pack.Laetitia.modle.entity.UserEntity;
+import com.pack.Laetitia.model.entity.UserEntity;
 import com.pack.Laetitia.packManager.enums.EventType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

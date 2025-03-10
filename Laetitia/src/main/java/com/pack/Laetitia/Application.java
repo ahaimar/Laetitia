@@ -1,6 +1,9 @@
 package com.pack.Laetitia;
 
-import com.pack.Laetitia.modle.repositry.RoleRepo;
+import com.pack.Laetitia.model.entity.RolesEntity;
+import com.pack.Laetitia.model.repositry.RoleRepo;
+import com.pack.Laetitia.packManager.domin.RequestContext;
+import com.pack.Laetitia.packManager.enums.Authority;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,8 +28,7 @@ public class Application {
 	CommandLineRunner commandLineRunner(RoleRepo roleRepo){
 
 		return args -> {
-
-//			RequestContext.setUserId(0L);
+//			RequestContext.setUserId(56434640L);
 //			var userRole = new RolesEntity();
 //			userRole.setName(Authority.USER.name());
 //			userRole.setAuthorities(Authority.USER);

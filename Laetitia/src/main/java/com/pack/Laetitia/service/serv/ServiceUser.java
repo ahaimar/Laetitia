@@ -1,14 +1,14 @@
 package com.pack.Laetitia.service.serv;
 
 
-import com.pack.Laetitia.modle.entity.ConfirmationEntity;
-import com.pack.Laetitia.modle.entity.CredentialEntity;
-import com.pack.Laetitia.modle.entity.RolesEntity;
-import com.pack.Laetitia.modle.entity.UserEntity;
-import com.pack.Laetitia.modle.repositry.ConfirmationRepo;
-import com.pack.Laetitia.modle.repositry.CredentialRepo;
-import com.pack.Laetitia.modle.repositry.RoleRepo;
-import com.pack.Laetitia.modle.repositry.UserRepo;
+import com.pack.Laetitia.model.entity.ConfirmationEntity;
+import com.pack.Laetitia.model.entity.CredentialEntity;
+import com.pack.Laetitia.model.entity.RolesEntity;
+import com.pack.Laetitia.model.entity.UserEntity;
+import com.pack.Laetitia.model.repositry.ConfirmationRepo;
+import com.pack.Laetitia.model.repositry.CredentialRepo;
+import com.pack.Laetitia.model.repositry.RoleRepo;
+import com.pack.Laetitia.model.repositry.UserRepo;
 import com.pack.Laetitia.packManager.enums.Authority;
 import com.pack.Laetitia.packManager.event.UserEvent;
 import com.pack.Laetitia.packManager.exceptio.ApiException;
@@ -57,9 +57,33 @@ public class ServiceUser implements UserImp {
         return  role.orElseThrow(()->new ApiException("Role not found: " + name));
     }
 
+    @Override
+    public void verifyAccountKey(String key) {
+
+        var confirmationEntity = getUserConfirmation(key);
+        var userEntity = getUserEntityByEmail(confirmationEntity.getUserEntity().getEmail());
+        userEntity.setEnabled(true);
+
+        userRepo.save(userEntity);
+        confirmationRepo.delete(confirmationEntity);
+
+    }
+
     private UserEntity createNewUser(String firstName, String lastName, String mail) {
 
         var role = getRoleName(Authority.USER.name());
         return createUserEntity(firstName, lastName, mail, role);
+    }
+
+    private UserEntity getUserEntityByEmail(String email) {
+
+        var userByEmail = userRepo.findByEmailIgnoreCase(email);
+
+        return userByEmail.orElseThrow(()-> new ApiException("User not found. "));
+    }
+
+    private ConfirmationEntity getUserConfirmation(String key) {
+
+        return confirmationRepo.findByKey(key).orElse(null);
     }
 }

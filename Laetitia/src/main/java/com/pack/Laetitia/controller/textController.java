@@ -1,4 +1,4 @@
-package com.pack.Laetitia.conttroller;
+package com.pack.Laetitia.controller;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequestMapping("/admin")
-public class MailController {
+public class textController {
 
     @GetMapping
     public String sendEmail() {

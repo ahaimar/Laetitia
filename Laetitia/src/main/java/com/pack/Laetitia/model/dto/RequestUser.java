@@ -1,14 +1,10 @@
-package com.pack.Laetitia.modle.dto;
+package com.pack.Laetitia.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.pack.Laetitia.modle.entity.RolesEntity;
-import com.pack.Laetitia.modle.entity.Auditable;
+import com.pack.Laetitia.model.entity.Auditable;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -22,13 +18,14 @@ public class RequestUser extends Auditable {
             *       this class is responsible for creating the database and loading the database
             * */
 
-    @NotEmpty(message = "First name cannot be empty")
+    @NotEmpty(message = "First name cannot be empty or null")
     private String firstName;
 
-    @NotEmpty(message = "Last name cannot be empty")
+    @NotEmpty(message = "Last name cannot be empty or null")
     private String lastName;
 
     @NotEmpty(message = "Email cannot be empty")
+    @Email(message = "Invalid email address")
     private String email;
 
     @NotEmpty(message = "Password cannot be empty")

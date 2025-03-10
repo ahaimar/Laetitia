@@ -1,4 +1,4 @@
-package com.pack.Laetitia.modle.entity;
+package com.pack.Laetitia.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.pack.Laetitia.packManager.enums.Authority;

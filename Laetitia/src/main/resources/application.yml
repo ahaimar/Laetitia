@@ -36,7 +36,7 @@ spring:
     # Swagger configuration
   sql:
     init:
-      mode: embedded #never
+      mode: embedded #never ALWAYS
       continue-on-error: false
       schema-locations:
         - classpath:./data/schema.sql

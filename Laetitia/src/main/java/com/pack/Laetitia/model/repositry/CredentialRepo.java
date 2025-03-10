@@ -1,7 +1,7 @@
-package com.pack.Laetitia.modle.repositry;
+package com.pack.Laetitia.model.repositry;
 
 
-import com.pack.Laetitia.modle.entity.CredentialEntity;
+import com.pack.Laetitia.model.entity.CredentialEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

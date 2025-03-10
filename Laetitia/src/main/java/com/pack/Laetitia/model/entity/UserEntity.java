@@ -1,4 +1,4 @@
-package com.pack.Laetitia.modle.entity;
+package com.pack.Laetitia.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -37,7 +37,7 @@ public class UserEntity extends Auditable {
 
     // security properties
     private boolean accountNotExpired;
-    private boolean accountLocked;
+    private boolean accountNotLocked;
     private boolean enabled;
     private boolean mfa;
 
