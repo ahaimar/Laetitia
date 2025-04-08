@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 @Setter
 public class JwtConfiguration {
 
-    @Value("${jwt.expiration}")
+    @Value("${JWT_EXPIRATION}")
     private Long expiration;
 
-    @Value("{jwt.secret}")
+    @Value("${JWT_SECRET}")
     private String secret;
 }

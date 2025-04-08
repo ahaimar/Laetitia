@@ -57,7 +57,7 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
 
 							// Apache Commons Lang
-	implementation 'org.apache.commons:commons-lang3'
+	implementation 'org.apache.commons:commons-lang3:3.13.0'
 
 							// Guava
 	implementation 'com.google.guava:guava:33.4.5-jre'
@@ -70,7 +70,7 @@ dependencies {
 	// Testing Dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
-	testImplementation 'org.junit.jupiter:junit-jupiter'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
 	testImplementation 'org.mockito:mockito-junit-jupiter'
 	testImplementation 'org.assertj:assertj-core'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
