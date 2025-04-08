@@ -38,6 +38,7 @@ out/
 
 ### dev ###
 application-dev.yml
+application-prod.yml
 
 ### env ###
 .env

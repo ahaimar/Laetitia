@@ -1,7 +1,7 @@
 package com.pack.Laetitia.service.serv;
 
 import com.pack.Laetitia.packManager.exceptio.ApiException;
-import com.pack.Laetitia.service.impl.EmailService;
+import com.pack.Laetitia.service.interfaces.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

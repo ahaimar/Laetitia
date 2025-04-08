@@ -1,9 +1,9 @@
 package com.pack.Laetitia.controller;
 
 
-import com.pack.Laetitia.model.dto.RequestUser;
+import com.pack.Laetitia.model.dto.UserRequest;
 import com.pack.Laetitia.packManager.domin.Response;
-import com.pack.Laetitia.service.serv.ServiceUser;
+import com.pack.Laetitia.service.serv.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,11 +22,10 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping(path = {"/user"})
 public class UserResource {
 
-    private final ServiceUser servUser;
+    private final UserServiceImpl servUser;
 
     @PostMapping("/register")
-    public ResponseEntity<Response> saveUser(@RequestBody @Validated RequestUser user,
-                                             HttpServletRequest request) {
+    public ResponseEntity<Response> saveUser(@RequestBody @Validated UserRequest user, HttpServletRequest request) {
         try{
 
             servUser.createUser(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword());
@@ -40,8 +39,8 @@ public class UserResource {
     }
 
     @PostMapping("/verify/account")
-    public ResponseEntity<Response> verifyAccount(@RequestParam("key") String key,
-                                             HttpServletRequest request) {
+    public ResponseEntity<Response> verifyAccount(@RequestParam("key") String key,HttpServletRequest request) {
+
         try {
 
             servUser.verifyAccountKey(key);
@@ -53,10 +52,9 @@ public class UserResource {
         }
 
     }
+
     private URI getUri() {
 
         return URI.create("http://localhost:9090/user/register");
     }
-
-
 }

@@ -25,10 +25,16 @@ public class UserEntity extends Auditable {
 
     @Column(updatable = false, nullable = false, unique = true)
     private String userId;
+
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+
     @Column(name = "mail" ,nullable = false, unique = true)
     private String email;
+
     private Long loginAttempts;
     private LocalDateTime lastLogin;
     private String phone;
@@ -36,8 +42,8 @@ public class UserEntity extends Auditable {
     private String imageUrl;
 
     // security properties
-    private boolean accountNotExpired;
-    private boolean accountNotLocked;
+    private boolean accountNonExpired;
+    private boolean accountNonLocked;
     private boolean enabled;
     private boolean mfa;
 

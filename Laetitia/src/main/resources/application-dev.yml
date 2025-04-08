@@ -12,6 +12,7 @@ PG_DATABASE: Laetitia
 
 # Server
 CONTAINER_PORT: 9090
+UI_APP_URL: http://localhost:3000             # port react app
 ACTIVE_PROFILE: dev
 
 # Email Config
@@ -20,3 +21,16 @@ EMAIL_PORT: 587
 EMAIL_ID: houwrou@hotmail.com
 EMAIL_PASSWORD: 12345qwert
 VERIFY_EMAIL_HOST: http://localhost:9090
+
+JWT_SECRET: ${SECRET}
+JWT_EXPIRATION: 432_000_000
+
+EXPIRY_DURATION: 60
+
+          #     EUREKA
+PASSWORD: 0000
+USER_NAME: admin
+
+          #     OAuth2 Property context
+GOOGLE_CLIENT_ID: null now
+GOOGLE_CLIENT_SECRET: null now

@@ -1,6 +1,18 @@
 
-            # ++++++++++++++++++|  Project Generator  |++++++++++++++++ #
-            # spring boot
+                            # ++++++++++++++++++|  Project Generator  |++++++++++++++++ #
+                            # spring boot
+
+
+server:
+  port: 3000
+  error:
+    path: /user/error
+    whitelabel:
+      enabled: false
+
+#logging:
+#  level:
+#    org.springframework.security: TRACE
 
 spring:
   application:
@@ -79,9 +91,48 @@ spring:
 #      password: 0000
 
       # server information
-server:
-  port: 9090
-  error:
-    path: /user/error
-    whitelabel:
-      enabled: false
+  security:         #
+    user:
+      name: user
+      password: password
+    oauth2:
+      authorization-server:
+        client:
+          oidc-client:
+            registration:
+              client-id: "oidc-client"
+              client-secret: "{noop}secret"
+              client-authentication-methods:
+                - "client_secret_basic"
+              authorization-grant-types:
+                - "authorization_code"
+                - "refresh_token"
+              redirect-uris:
+                - "http://127.0.0.1:8080/login/oauth2/code/oidc-client"
+              post-logout-redirect-uris:
+                - "http://127.0.0.1:8080/"
+              scopes:
+                - "openid"
+                - "profile"
+            require-authorization-consent: true
+
+jwt:
+  expiration: ${JWT_EXPIRATION}
+  secret: ${JWT_SECRET}
+
+cache:
+   expiry:
+    duration: ${EXPIRY_DURATION:60}
+
+    # TODO: a service registry for microservices, but not using now.
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://${USER_NAME}:${PASSWORD}@localhost:5002/eureka
+
+ui:
+  app:
+    url: ${UI_APP_URL}

@@ -1,7 +1,7 @@
 package com.pack.Laetitia.packManager.enums;
 
 
-import static com.pack.Laetitia.packManager.Constant.*;
+import static com.pack.Laetitia.packManager.Constants.*;
 
 public enum Authority {
 

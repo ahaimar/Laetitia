@@ -1,7 +1,12 @@
+
+						//		Project of Configuration
+						//
+						//
+
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.7'
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.springframework.boot' version '3.2.2'  // Use the latest stable version
+	id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.pack'
@@ -13,6 +18,14 @@ java {
 	}
 }
 
+project.ext {
+
+	// JWT (JSON Web Tokens)
+    jwtVersion = '0.12.5'
+
+    // Spring Security OAuth2
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
@@ -22,37 +35,56 @@ configurations {
 repositories {
 	mavenCentral()
 }
-
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+							// Spring Boot starters
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'  // Lombok for compile-time only
-	annotationProcessor 'org.projectlombok:lombok'  // Lombok annotation processor
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-// slf4j for logging
-	implementation 'org.slf4j:slf4j-ext'
-
-// PostgreSQL
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	runtimeOnly 'org.postgresql:postgresql'
-
-// Email and Thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-// Jackson for JSON processing
+							// Lombok (for compile-time only)
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+							// PostgresSQL Database
+	runtimeOnly 'org.postgresql:postgresql'
+
+							// Jackson (JSON processing)
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
-	implementation 'com.fasterxml.jackson.core:jackson-core'
-	implementation 'com.fasterxml.jackson.core:jackson-annotations'
 
-// Apache Commons Lang
+							// Apache Commons Lang
 	implementation 'org.apache.commons:commons-lang3'
 
+							// Guava
+	implementation 'com.google.guava:guava:33.4.5-jre'
+
+							// JWT (JSON Web Token) for authentication
+	implementation "io.jsonwebtoken:jjwt-api:0.11.5"
+	implementation "io.jsonwebtoken:jjwt-impl:0.11.5"
+	implementation "io.jsonwebtoken:jjwt-jackson:0.11.5"
+
+	// Testing Dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter'
+	testImplementation 'org.mockito:mockito-junit-jupiter'
+	testImplementation 'org.assertj:assertj-core'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+
 tasks.named('test') {
+
+	//problem here
 	useJUnitPlatform()
 }
+
+tasks.withType(JavaCompile) {
+	options.compilerArgs << "-Xlint:deprecation"
+}
+
+
